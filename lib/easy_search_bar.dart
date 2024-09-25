@@ -468,151 +468,155 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
                                         Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Container(
-                                                height: widget.appBarHeight +
-                                                    (widget.isFloating ? 5 : 0),
-                                                width: double.infinity,
-                                                padding: const EdgeInsets.only(
-                                                  top: 10,
-                                                  left: 5,
-                                                  right: 3,
-                                                  bottom: 10,
-                                                ),
-                                                child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Visibility(
-                                                          visible: scaffold!
-                                                              .hasDrawer,
-                                                          replacement:
-                                                              Visibility(
-                                                                  visible:
-                                                                      canPop,
-                                                                  replacement:
-                                                                      Visibility(
+                                            Expanded(
+                                              child: Container(
+                                                  height: widget.appBarHeight +
+                                                      (widget.isFloating
+                                                          ? 5
+                                                          : 0),
+                                                  width: double.infinity,
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    top: 10,
+                                                    left: 5,
+                                                    right: 3,
+                                                    bottom: 10,
+                                                  ),
+                                                  child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Visibility(
+                                                            visible: scaffold!
+                                                                .hasDrawer,
+                                                            replacement:
+                                                                Visibility(
                                                                     visible:
-                                                                        widget.leading !=
-                                                                            null,
+                                                                        canPop,
                                                                     replacement:
-                                                                        const SizedBox(),
+                                                                        Visibility(
+                                                                      visible:
+                                                                          widget.leading !=
+                                                                              null,
+                                                                      replacement:
+                                                                          const SizedBox(),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            right:
+                                                                                10),
+                                                                        child: widget
+                                                                            .leading,
+                                                                      ),
+                                                                    ),
                                                                     child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
+                                                                        IconTheme(
+                                                                      data:
+                                                                          iconTheme,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            right:
+                                                                                10),
+                                                                        child: IconButton(
+                                                                            icon:
+                                                                                const Icon(Icons.arrow_back_outlined),
+                                                                            onPressed: () => Navigator.pop(context),
+                                                                            tooltip: MaterialLocalizations.of(context).backButtonTooltip),
+                                                                      ),
+                                                                    )),
+                                                            child: IconTheme(
+                                                                data: iconTheme,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
                                                                           .only(
                                                                           right:
                                                                               10),
-                                                                      child: widget
-                                                                          .leading,
-                                                                    ),
-                                                                  ),
-                                                                  child:
-                                                                      IconTheme(
-                                                                    data:
-                                                                        iconTheme,
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .only(
-                                                                          right:
-                                                                              10),
-                                                                      child: IconButton(
-                                                                          icon: const Icon(Icons
-                                                                              .arrow_back_outlined),
-                                                                          onPressed: () => Navigator.pop(
-                                                                              context),
-                                                                          tooltip:
-                                                                              MaterialLocalizations.of(context).backButtonTooltip),
-                                                                    ),
-                                                                  )),
-                                                          child: IconTheme(
-                                                              data: iconTheme,
-                                                              child: Padding(
-                                                                padding:
+                                                                  child: IconButton(
+                                                                      icon: const Icon(
+                                                                          Icons
+                                                                              .menu),
+                                                                      onPressed: () =>
+                                                                          scaffold
+                                                                              .openDrawer(),
+                                                                      tooltip: MaterialLocalizations.of(
+                                                                              context)
+                                                                          .openAppDrawerTooltip),
+                                                                ))),
+                                                        Expanded(
+                                                            child: Container(
+                                                                margin:
                                                                     const EdgeInsets
                                                                         .only(
-                                                                        right:
+                                                                        left:
                                                                             10),
-                                                                child: IconButton(
-                                                                    icon: const Icon(
-                                                                        Icons
-                                                                            .menu),
-                                                                    onPressed: () =>
-                                                                        scaffold
-                                                                            .openDrawer(),
-                                                                    tooltip: MaterialLocalizations.of(
-                                                                            context)
-                                                                        .openAppDrawerTooltip),
-                                                              ))),
-                                                      Expanded(
-                                                          child: Container(
-                                                              margin:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      left: 10),
-                                                              child:
-                                                                  DefaultTextStyle(
-                                                                style:
-                                                                    titleTextStyle,
-                                                                softWrap: false,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                child: widget
-                                                                    .title,
-                                                              ))),
-                                                      ...List.generate(
-                                                          widget.actions
-                                                                  .length +
-                                                              1, (index) {
-                                                        if (widget.actions
-                                                                        .length ==
-                                                                    index &&
-                                                                !widget
-                                                                    .putActionsOnRight ||
-                                                            index == 0 &&
-                                                                widget
-                                                                    .putActionsOnRight) {
+                                                                child:
+                                                                    DefaultTextStyle(
+                                                                  style:
+                                                                      titleTextStyle,
+                                                                  softWrap:
+                                                                      false,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  child: widget
+                                                                      .title,
+                                                                ))),
+                                                        ...List.generate(
+                                                            widget.actions
+                                                                    .length +
+                                                                1, (index) {
+                                                          if (widget.actions
+                                                                          .length ==
+                                                                      index &&
+                                                                  !widget
+                                                                      .putActionsOnRight ||
+                                                              index == 0 &&
+                                                                  widget
+                                                                      .putActionsOnRight) {
+                                                            return IconTheme(
+                                                                data: iconTheme,
+                                                                child:
+                                                                    IconButton(
+                                                                        icon: const Icon(Icons
+                                                                            .search),
+                                                                        iconSize:
+                                                                            iconTheme.size ??
+                                                                                24,
+                                                                        onPressed:
+                                                                            () {
+                                                                          _controller
+                                                                              .forward();
+                                                                          _focusNode
+                                                                              .requestFocus();
+
+                                                                          if (widget
+                                                                              .openOverlayOnSearch) {
+                                                                            openOverlay();
+                                                                          }
+                                                                        },
+                                                                        tooltip:
+                                                                            MaterialLocalizations.of(context).searchFieldLabel));
+                                                          }
                                                           return IconTheme(
                                                               data: iconTheme,
-                                                              child: IconButton(
-                                                                  icon: const Icon(
-                                                                      Icons
-                                                                          .search),
-                                                                  iconSize:
-                                                                      iconTheme.size ??
-                                                                          24,
-                                                                  onPressed:
-                                                                      () {
-                                                                    _controller
-                                                                        .forward();
-                                                                    _focusNode
-                                                                        .requestFocus();
-
-                                                                    if (widget
-                                                                        .openOverlayOnSearch) {
-                                                                      openOverlay();
-                                                                    }
-                                                                  },
-                                                                  tooltip: MaterialLocalizations.of(
-                                                                          context)
-                                                                      .searchFieldLabel));
-                                                        }
-                                                        return IconTheme(
-                                                            data: iconTheme,
-                                                            child: widget
-                                                                .actions[widget
-                                                                    .putActionsOnRight
-                                                                ? (index - 1)
-                                                                : index]);
-                                                      })
-                                                    ])),
+                                                              child: widget
+                                                                  .actions[widget
+                                                                      .putActionsOnRight
+                                                                  ? (index - 1)
+                                                                  : index]);
+                                                        })
+                                                      ])),
+                                            ),
                                             if (widget.bottom != null)
                                               widget.bottom!,
                                           ],

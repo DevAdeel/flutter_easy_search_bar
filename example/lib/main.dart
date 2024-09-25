@@ -49,6 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.black,
                 ),
                 bottomHeight: 1,
+                backgroundColor: Colors.white,
+                elevation: 0,
                 onSearch: (value) => setState(() => searchValue = value),
                 actions: [
                   IconButton(icon: const Icon(Icons.person), onPressed: () {})
