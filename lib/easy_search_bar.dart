@@ -42,6 +42,9 @@ class EasySearchBar<T> extends StatefulWidget implements PreferredSizeWidget {
   ///Widget to be show at bottom same as appbar
   final Widget? bottom;
 
+  ///Height of bottom widget
+  final double bottomHeight;
+
   /// Returns the current search value
   /// When search is closed, this method returns an empty value to clear the current search
   final Function(String) onSearch;
@@ -152,6 +155,7 @@ class EasySearchBar<T> extends StatefulWidget implements PreferredSizeWidget {
       {Key? key,
       required this.title,
       this.bottom,
+      this.bottomHeight = 0,
       required this.onSearch,
       this.suggestionBuilder,
       this.leading,
@@ -195,7 +199,7 @@ class EasySearchBar<T> extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      Size.fromHeight(appBarHeight + (isFloating ? 5 : 0));
+      Size.fromHeight(appBarHeight + bottomHeight + (isFloating ? 5 : 0));
 }
 
 class _EasySearchBarState<T> extends State<EasySearchBar<T>>
@@ -455,7 +459,7 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
                                       top: widget.isFloating ? 5 : 0,
                                       left: widget.isFloating ? 5 : 0,
                                       right: widget.isFloating ? 5 : 0),
-                                  height: 66,
+                                  height: 68 + widget.bottomHeight,
                                   child: Material(
                                       color: backgroundColor,
                                       borderRadius: BorderRadius.circular(
@@ -469,10 +473,11 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
                                                     (widget.isFloating ? 5 : 0),
                                                 width: double.infinity,
                                                 padding: const EdgeInsets.only(
-                                                    top: 10,
-                                                    left: 5,
-                                                    right: 3,
-                                                    bottom: 10),
+                                                  top: 10,
+                                                  left: 5,
+                                                  right: 3,
+                                                  bottom: 10,
+                                                ),
                                                 child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -704,7 +709,7 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
                                                                               widget.onSearch(_searchController.text);
                                                                             })))),
                                                           )));
-                                                }))
+                                                })),
                                       ])));
                             }),
                           ),

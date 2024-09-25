@@ -43,6 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
         home: Scaffold(
             appBar: EasySearchBar(
                 title: const Text('Example'),
+                bottom: Container(
+                  height: 1,
+                  width: double.infinity,
+                  color: Colors.black,
+                ),
+                bottomHeight: 1,
                 onSearch: (value) => setState(() => searchValue = value),
                 actions: [
                   IconButton(icon: const Icon(Icons.person), onPressed: () {})
