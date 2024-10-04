@@ -47,7 +47,11 @@ class EasySearchBar<T> extends StatefulWidget implements PreferredSizeWidget {
 
   /// Returns the current search value
   /// When search is closed, this method returns an empty value to clear the current search
-  final Function(String) onSearch;
+  final Function(String)? onSearch;
+
+  /// Returns the search value when search button clicked
+  /// When search is closed, this method returns an empty value to clear the current search
+  final Function(String)? onSubmitSearch;
 
   /// Can be used to add leading icon to AppBar
   final Widget? leading;
@@ -156,7 +160,8 @@ class EasySearchBar<T> extends StatefulWidget implements PreferredSizeWidget {
       required this.title,
       this.bottom,
       this.bottomHeight = 0,
-      required this.onSearch,
+      this.onSearch,
+      this.onSubmitSearch,
       this.suggestionBuilder,
       this.leading,
       this.actions = const [],
@@ -242,7 +247,7 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
     ));
     _searchController.addListener(() async {
       if (_focusNode.hasFocus) {
-        widget.onSearch(_searchController.text);
+        widget.onSearch?.call(_searchController.text);
         if (widget.suggestions != null) {
           openOverlay();
           updateSyncSuggestions(_searchController.text);
@@ -308,7 +313,7 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
                             if (widget.onSuggestionTap != null) {
                               widget.onSuggestionTap!(value);
                             }
-                            widget.onSearch(suggestionToString(value));
+                            widget.onSearch?.call(suggestionToString(value));
                             closeOverlay();
                           })))));
     }
@@ -661,8 +666,13 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
                                                             child: TextField(
                                                                 onSubmitted:
                                                                     (value) {
-                                                                  widget.onSearch(
-                                                                      _searchController
+                                                                  widget
+                                                                      .onSubmitSearch
+                                                                      ?.call(_searchController
+                                                                          .text);
+                                                                  widget
+                                                                      .onSearch
+                                                                      ?.call(_searchController
                                                                           .text);
                                                                   _focusNode
                                                                       .unfocus();
@@ -700,7 +710,8 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
                                                                             onPressed: () {
                                                                               _controller.reverse();
                                                                               _searchController.clear();
-                                                                              widget.onSearch(_searchController.text);
+                                                                              widget.onSubmitSearch?.call(_searchController.text);
+                                                                              widget.onSearch?.call(_searchController.text);
                                                                               _focusNode.unfocus();
                                                                               closeOverlay();
                                                                             })),
@@ -710,7 +721,8 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
                                                                             icon: const Icon(Icons.close_rounded),
                                                                             onPressed: () {
                                                                               _searchController.clear();
-                                                                              widget.onSearch(_searchController.text);
+                                                                              widget.onSearch?.call(_searchController.text);
+                                                                              widget.onSubmitSearch?.call(_searchController.text);
                                                                             })))),
                                                           )));
                                                 })),
