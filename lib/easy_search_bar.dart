@@ -464,7 +464,8 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
                                       top: widget.isFloating ? 5 : 0,
                                       left: widget.isFloating ? 5 : 0,
                                       right: widget.isFloating ? 5 : 0),
-                                  height: 68 + widget.bottomHeight,
+                                  height:
+                                      widget.appBarHeight + widget.bottomHeight,
                                   child: Material(
                                       color: backgroundColor,
                                       borderRadius: BorderRadius.circular(
