@@ -44,23 +44,24 @@ class _MyHomePageState extends State<MyHomePage> {
         theme: ThemeData(primarySwatch: Colors.orange),
         home: Scaffold(
             appBar: EasySearchBar(
-                title: const Text('Example'),
-                bottom: Container(
-                  height: 1,
-                  width: double.infinity,
-                  color: Colors.black,
-                ),
-                bottomHeight: 1,
-                appBarHeight: 71,
-                backgroundColor: Colors.white,
-                elevation: 0,
-                onSearch: (value) => setState(() => searchValue = value),
-                onSubmitSearch: (value) => log("Search Submitted: $value"),
-                actions: [
-                  IconButton(icon: const Icon(Icons.person), onPressed: () {})
-                ],
-                asyncSuggestions: (value) async =>
-                    await _fetchSuggestions(value)),
+              title: const Text('Example'),
+              searchText: "Hello---here",
+              bottom: Container(
+                height: 1,
+                width: double.infinity,
+                color: Colors.black,
+              ),
+              bottomHeight: 1,
+              appBarHeight: 71,
+              backgroundColor: Colors.white,
+              elevation: 0,
+              onSearch: (value) => setState(() => searchValue = value),
+              onSubmitSearch: (value) => log("Search Submitted: $value"),
+              actions: [
+                IconButton(icon: const Icon(Icons.person), onPressed: () {})
+              ],
+              /*asyncSuggestions: (value) async => await _fetchSuggestions(value),*/
+            ),
             drawer: Drawer(
                 child: ListView(padding: EdgeInsets.zero, children: [
               const DrawerHeader(

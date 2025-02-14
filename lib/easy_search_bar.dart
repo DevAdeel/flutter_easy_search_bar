@@ -155,9 +155,13 @@ class EasySearchBar<T> extends StatefulWidget implements PreferredSizeWidget {
   /// Can be uses to allow user to cancel suggestions with escape or back button.
   final bool cancelableSuggestions;
 
+  /// Allow user to set text in search field
+  final String? searchText;
+
   const EasySearchBar(
       {Key? key,
       required this.title,
+      this.searchText,
       this.bottom,
       this.bottomHeight = 0,
       this.onSearch,
@@ -222,11 +226,12 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
   late Animation _containerSizeAnimation;
   late Animation _containerBorderRadiusAnimation;
   late Animation _textFieldOpacityAnimation;
-  final TextEditingController _searchController = TextEditingController();
+  late final TextEditingController _searchController;
 
   @override
   void initState() {
     super.initState();
+    _searchController = TextEditingController(text: widget.searchText);
     _controller =
         AnimationController(vsync: this, duration: widget.animationDuration);
     _containerSizeAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -257,6 +262,9 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
         }
       }
     });
+    if (widget.searchText != null) {
+      _controller.forward();
+    }
   }
 
   Widget? _suggestionLoaderBuilder() {
