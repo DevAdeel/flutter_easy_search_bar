@@ -380,7 +380,9 @@ class _EasySearchBarState<T> extends State<EasySearchBar<T>>
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final AppBarTheme appBarTheme = AppBarTheme.of(context);
+    final AppBarTheme appBarTheme = AppBarTheme(
+      data: AppBarTheme.of(context),
+    );
     final ScaffoldState? scaffold = Scaffold.maybeOf(context);
     final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
 
